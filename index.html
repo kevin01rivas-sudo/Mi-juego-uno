@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNO Online</title>
+
+<style>
+body{
+  font-family: Arial;
+  background:#0b5;
+  color:white;
+  text-align:center;
+  margin:0;
+  padding:20px;
+}
+
+.card{
+  display:inline-block;
+  background:white;
+  color:black;
+  padding:15px;
+  margin:5px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+button{
+  padding:10px;
+  font-size:18px;
+  border:none;
+  border-radius:8px;
+  margin:5px;
+  cursor:pointer;
+}
+
+input{
+  padding:10px;
+  font-size:18px;
+  border-radius:8px;
+  border:none;
+}
+</style>
+</head>
+
+<body>
+
+<h1>UNO en línea</h1>
+
+<div id="login">
+  <input id="nombre" placeholder="Tu nombre">
+  <button onclick="entrar()">Entrar</button>
+</div>
+
+<div id="sala" style="display:none">
+  <h2>Sala: <span id="codigoSala"></span></h2>
+  <button onclick="crearSala()">Crear sala</button>
+  <input id="codigoInput" placeholder="Código sala">
+  <button onclick="unirseSala()">Unirse</button>
+
+  <h3>Jugadores:</h3>
+  <div id="jugadores"></div>
+</div>
+
+<script>
+let nombreJugador="";
+let salaActual="";
+
+function entrar(){
+  const n=document.getElementById("nombre").value.trim();
+  if(!n) return alert("Escribe tu nombre");
+  nombreJugador=n;
+  document.getElementById("login").style.display="none";
+  document.getElementById("sala").style.display="block";
+}
+
+function crearSala(){
+  salaActual=Math.random().toString(36).substring(2,6).toUpperCase();
+  document.getElementById("codigoSala").innerText=salaActual;
+  agregarJugador(nombreJugador);
+}
+
+function unirseSala(){
+  const codigo=document.getElementById("codigoInput").value.trim().toUpperCase();
+  if(!codigo) return;
+  salaActual=codigo;
+  document.getElementById("codigoSala").innerText=salaActual;
+  agregarJugador(nombreJugador);
+}
+
+function agregarJugador(nombre){
+  const div=document.createElement("div");
+  div.className="card";
+  div.innerText=nombre;
+  document.getElementById("jugadores").appendChild(div);
+}
+</script>
+
+</body>
+</html>
